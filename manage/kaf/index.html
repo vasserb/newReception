@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html;" charset="utf-8">
+
+<script src="jquery-3.3.1.min.js"></script>
+<script src="https://apache.school1298.ru/dop/plugins/jquery.mask.min.js"></script>
+<script src="https://apache.school1298.ru/dop/plugins/jquery.validate.min.js"></script>
+<link href="https://apache.school1298.ru/dop/plugins/table.css?ver=1.5" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="xlsx.full.min.js"></script>
+
+<link href="tabulator_semanticui.min.css" rel="stylesheet">
+<script type="text/javascript" src="tabulator.min.js"></script>
+<meta name="viewport" content="width=650, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html;" charset="utf-8">
+<script src="tableExport.js"></script>
+<title>Редактирование записи кафедр</title>
+ <style>
+ 
+ body {
+    overflow: hidden;
+	touch-action: none; /* Отключает стандартную обработку жестов */
+
+}
+ .bluebutton {
+    background-color: #5593e5;
+    border: none;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    color: #fff;
+    padding: 8px 12px;
+    margin: 5px;
+    transition: 0.5s;
+    -webkit-appearance: none;
+    cursor: pointer;
+    /* transition: 1slinear; */
+}
+
+.headstr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 10px 10px 30px;
+}
+
+.grayblank {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 0.2;
+	display:none;
+}
+
+.modal {
+    position: fixed;
+    width: 90vw;
+    max-width: 500px;
+    left: 50%;
+    background-color: white;
+    z-index: 101;
+    transform: translateX(-50%);
+	border-radius: 8px;
+	display:none;
+}
+
+.filterHead {
+    background-color: #5593e5;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+	border-radius: 8px 8px 0 0;
+}
+
+.filterContent {
+    padding: 30px;
+}
+
+#filterFIO {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #b5b5b5;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+#filterClass, #filterSel {
+    width: calc(100%);
+    padding: 10px;
+    border: 1px solid #b5b5b5;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+th.cell{
+	white-space: nowrap;
+	width: 1%;
+}
+.tblecontainer{
+	    overflow-y: scroll;
+    overflow-x: scroll;
+    height: calc(100vh - 65px);
+}
+thead {
+    position: sticky;
+    top: 0px;
+}
+span.newCaption {
+    color: white;
+    background-color: #1fb01f;
+    padding: 3px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+ </style>
+</head>
+<body>
+<div class="headstr">
+<span>Дополнительное соглашение. Материнский капитал</span>
+<div>
+	<!--button onclick="showModal()" class="bluebutton right">Фильтр</button-->
+	<button id="downloadxlsx" class="bluebutton right" >выгрузить в Excel</button>
+</div>
+</div>
+<div class="grayblank" onclick="hideModal()">
+</div>
+<div class="modal">
+	<div class="filterHead">
+		<span>Фильтр</span>
+		<span onclick="hideModal()">x</span>
+	</div>
+	<!--div class="filterContent">
+		<div>Фамилия</div>
+		<div><input id="filterFIO"/></div>
+		<div>Класс</div>
+		<div>
+			<select id="filterClass" >
+				<option></option>
+			</select>
+		</div>
+		<div>Выбор языка</div>
+		<div>
+			<select id="filterSel" >
+				<option></option>
+			</select>
+		</div>
+		<div><button onclick="applyFilter()" class="bluebutton">Применить</button></div>
+	</div-->
+</div>
+
+<div id="tblecontainer">
+
+</div>
+<script>
+var dateEditor = function(cell){
+	// Build formData object.
+	let formData = new FormData();
+	formData.append('Id', cell._cell.row.data.Id);
+	formData.append('field', cell._cell.column.field);
+	formData.append('newData', cell._cell.value);
+	fetch("https://apache.school1298.ru/reception/manage/api/saveField.php",
+		{
+			body: formData,
+			method: "post"
+		}).then(() => {table.replaceData()})
+
+	console.log(cell._cell.row.data.id, cell._cell.value, cell._cell.column.field)
+}
+
+
+var printIcon = function(cell, formatterParams, onRendered){ //plain text value
+    return '<span><img src="cycle.png" class="re" title="Загрузить заново"/></span>';
+};
+
+
+var editIcon = function(cell, formatterParams, onRendered){ //plain text value
+    return '<span><img src="edit.png" class="re" title="Сформаровать документ"/></span>';
+};
+
+var hideIcon = function(cell, formatterParams, onRendered){ //plain text value
+	if(cell._cell.row.data.hide == 0){
+		return '<span class="newCaption">Новое</span>'
+	}else{
+		return '<span></span>';
+	}
+};
+
+var downloadA = function(cell, formatterParams, onRendered){ //plain text value
+	if(cell._cell.value!= null){
+		return '<span><a href="https://dev.1298.ru/api/motherCapital/export/dop_'+cell._cell.value+'.docx" >'+cell._cell.value+'</a></span>';
+	}else{
+		return('<span></span>')
+	}
+    
+};
+
+var downloadB = function(cell, formatterParams, onRendered){ //plain text value
+	if(cell._cell.value!= null){
+		return '<span><a href="https://dev.1298.ru/api/motherCapital/export/req_'+cell._cell.value+'.docx" >'+cell._cell.value+'</a></span>';
+	}else{
+		return('<span></span>')
+	}
+    
+};
+
+
+var table = new Tabulator("#tblecontainer", {
+	index: "id",
+ 	height:'calc(100vh - 70px)', // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+ 	reactiveData:true, 
+	ajaxURL:"https://apache.school1298.ru/reception/manage/api/allusers.php",
+ 	columns:[ //Define Table Columns
+	 	{title:"Id", field:"Id"},
+		{title:"FIO", field:"FIO", editor:true, cellEdited:dateEditor},
+		{title:"kaf", field:"kaf", editor:true, cellEdited:dateEditor, headerFilter:"input"},
+		{title:"Place", field:"Place", editor:true, cellEdited:dateEditor},
+		{title:"Post", field:"Post", editor:true, cellEdited:dateEditor},
+		{title:"email", field:"email", editor:true, cellEdited:dateEditor},
+		{title:"url", field:"url", editor:true, cellEdited:dateEditor},
+		{title:"Archive", field:"Archive", editor:true, cellEdited:dateEditor},
+ 	],
+	
+});
+
+
+function xxssll(content){
+	$(content).tableExport({
+	  filename: 'table',
+	  format: 'xls',
+	});
+}
+function save(field, id, value){
+	console.log(field, id, value)
+}
+
+var download = function(e, cell){
+	console.log(cell)
+	// Build formData object.
+	location.href = 'https://dev.1298.ru/api/motherCapital/export/dop_'+cell._cell.value+'.docx'
+}
+
+var downloadreq = function(e, cell){
+	console.log(cell)
+	// Build formData object.
+	location.href = 'https://dev.1298.ru/api/motherCapital/export/req_'+cell._cell.value+'.docx'
+}
+
+document.getElementById("downloadxlsx").addEventListener("click", function(){
+	const now = new Date();
+	const year = now.getFullYear();
+	const month = now.getMonth()+1; // нумерация месяцев начинается с 0
+	const day = now.getDate();
+	console.log();
+    table.download("xlsx", "Материнский капитал от "+day+"."+month+"."+year+".xlsx", {sheetName:"My Data"});
+});
+
+
+
+</script>
+</body>
+
+</html>

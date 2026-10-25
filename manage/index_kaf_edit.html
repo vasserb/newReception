@@ -1,0 +1,116 @@
+<html>
+    <head>
+    	<meta http-equiv="Content-Type" content="text/html;" charset="utf-8">
+		<title>Управление записью</title>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <link href="dist/css/datepicker.min.css" rel="stylesheet" type="text/css">
+        <script src="dist/js/datepicker.min.js"></script>
+        <link href="dist/css/nouislider.min.css" rel="stylesheet" type="text/css">
+        <link href="../css/css.css" rel="stylesheet" type="text/css">
+
+        <script src="dist/js/nouislider.min.js"></script>
+        <script src="js/app_kaf_edit.js?v=3"></script>
+        <style>
+        	.date{
+    			background-color: #eee;
+			    padding: 5px 10px;
+			    margin: 5px;
+			    display: inline-block;
+			    font-size: 12pt;
+			    border-radius: 4px;
+			    transition: 0.2s;
+			    cursor: pointer;
+
+			}
+			.date:hover{
+			    transition: 0.2s;
+			    background-color: #ca0000;
+			    color: #ca0000;
+			}
+			.date:hover:after {
+			    transition: 0.2s;
+
+			    content: "удалить";
+			    text-align: center;
+			    position: absolute;
+			    /* top: 10px; */
+    			transform: translateX(-67px);
+			    /* float: left; */
+			    color: white;
+			}
+			#slider {
+   				margin: 50px;
+			}
+			#SelectedDates{
+				display: inline-block;
+				width: calc(100% - 300px);
+				vertical-align: top;
+			}
+			.datepicker-inline{
+				display: inline-block;
+			}
+			.add{
+				max-width: 600px;
+			    text-align: center;
+			    margin: auto;
+			    width: 100%;
+			    top: 50px;
+			    background: #fff;
+			    z-index: 101;
+			}
+			#SelectedDatesList{
+				text-align: center;
+			}
+			.titl{
+				text-align: center;
+				font-size: 16pt;
+				margin:20px;
+			}
+			.noUi-connect {
+			    background: #5593e5 !important;
+			}
+			.datepicker--cell.-selected-, .datepicker--cell.-selected-.-current- {
+			    color: #fff;
+			    background: #5593e5 !important;
+			}
+			.xx {
+			    color: #ba0000;
+			    position: relative;
+			    top: -10px;
+			    left: 10px;
+			    /* background-color: #d0d0d0; */
+			    cursor: pointer;
+			}
+			.ten {
+			    position: fixed;
+			    top: 0px;
+			    left: 0px;
+			    width: 100%;
+			    height: 100%;
+			    background: gray;
+			    z-index: 100;
+			    opacity: 0.5;
+			    display: none;
+			}
+			.href {
+			    cursor: pointer;
+			}
+			#interval {
+			    font-size: inherit;
+			}
+			div#AllUsers {
+				display: grid;
+				grid-template-columns: 1fr 1fr 1fr;
+				font-size: 14px;
+				grid-gap: 5px;
+			}
+        </style>
+    </head>
+    <body>
+		<div class="TopHead">
+			<h1 id="">Массовое изменение кафедры</h1>	
+		</div>
+		<div id="AllUsers"></div>
+		<div id="AllUsers"></div>
+        </body>
+</html>

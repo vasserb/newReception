@@ -1,0 +1,261 @@
+.TopHead {
+    text-align: center;
+    margin-top:30px;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14pt;
+    text-align: center;
+}
+
+h1 {
+	font-size: 14pt;
+	margin: auto;
+	width: 90%;
+	padding: 5px;
+}
+h2 {
+	font-size: 12pt;
+	width: 90%;
+	margin: auto;
+	padding: 5px;
+
+}
+
+.inputField {
+    width: 90%;
+    min-width: 250px;
+    height: 34px;
+    padding: 6px 12px;
+    background-color: #fff !important;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    -webkit-appearance: none;
+    vertical-align: middle;
+}
+
+.extended {
+    padding: 5px;
+    margin: 0px !important;
+    font-size: 14px;
+}
+
+.cent {
+    text-align: center;
+}
+
+.hidedafault{
+	display:none;
+}
+
+span.modalcaption {
+    width: 180px;
+    display: inline-block;
+    text-align: left;
+}
+
+.short {
+    max-width: 400px;
+}
+textarea.textar{
+	height: 80px
+}
+
+#form {
+	max-width: 800px;
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+}
+
+#form1 {
+    /*max-width: 800px;*/
+    width: 90%;
+    text-align: center;
+    display: inline-block;
+}
+
+.downbar{
+	position: absolute;
+	transform: translateX(-20px) translateY(8px);
+	pointer-events:none;
+}
+
+#TimeList{
+	width: 90%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-gap: 2vw;
+	max-width: 500px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.bluebutton {
+    background-color: #5593e5;
+    border: none;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    color: #fff;
+    padding: 8px 12px;
+    margin: 20px;
+    transition: 0.5s;
+    -webkit-appearance: none;
+    /* transition: 1s linear; */
+}
+
+.bigbtn{width: 250px;
+font-size: 16px;}
+
+.inputField.valid {
+    border-color: green;
+}
+
+.inputField.error {
+    border-color: red;
+}
+
+.TimeSel {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    -webkit-appearance: none;
+    vertical-align: middle;
+}
+
+@media (max-width: 595px) {
+	#TimeList{
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+
+	}
+	label.error{
+		position: inherit !important;
+	}
+}
+
+.TimeSel.selected {
+    border-color: #5593e5;
+    background-color: #eef5ff;
+}
+
+label.error {
+    color: #db0000;
+    width: 90%;
+    font-size: 14px;
+    /* background-color: red; */
+    /* border-radius: 2px; */
+    margin: 3px;
+    display: inline-block;
+    position: relative;
+    right: -85px;
+}
+
+.loaderdiv {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 140;
+    top: 0;
+    opacity: 0.8;
+}
+
+.err {
+    margin-top: 30vh;
+}
+
+th {
+    border: none !important;
+    background-color: #5593e5 !important;
+    color: white !important;
+    padding: 10px !important;
+    text-align: center !important;
+}
+
+td{
+    /* border: none !important; */
+    border-bottom: 1px solid #535353 !important;
+    /* text-align: center; */
+    padding: 10px !important;
+    background-color: white !important;
+}
+
+.bluetable{
+    /*border: none !important;*/
+    width: 100%;
+
+}
+
+.isstudent{
+}
+
+.xdel {
+    font-weight: bold;
+    color: #bf0000;
+    cursor: pointer;
+}
+
+.children {
+    padding: 5px;
+    margin: 0px !important;
+    font-size: 14px;
+}
+
+textarea:disabled {
+    background-color: #f4f4f4 !IMPORTANT;
+}
+
+input:disabled {
+    background-color: #f4f4f4 !IMPORTANT;
+}
+
+.grayblank {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 100;
+    top: 0;
+    opacity: 0.4;
+}
+
+.modal-success {
+    display: inline-block;
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    max-height: 500px;
+
+    text-align: center;
+    margin: auto;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    background: #fff;
+    transform: translateX(-50%);
+    z-index: 101;
+}
+
+.success{
+	padding:10px;
+	font-size:16px;
+}
+
+.chkquest {
+    margin: 10px;
+font-size: 14px;
+}

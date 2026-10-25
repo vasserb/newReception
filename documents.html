@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;" charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>Запись на прием</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="js/app-document.js?v=0.12"/></script> 
+<link rel="stylesheet" type="text/css" href="css/css.css">
+<script src="../dop/plugins/jquery.mask.min.js"></script>
+<script type="text/javascript" src="../dop/plugins/jquery.validate.min.js"></script>
+
+<!--script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+<script type="text/javascript" src="plugins/moment-with-locales.js"></script>
+<script type="text/javascript" src="plugins/jquery.mask.min.js"></script>
+<link href="plugins/dop-css.css?ver=1.6" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="plugins/jquery.validate.min.js"></script-->
+
+</head>
+<body>
+<div class="TopHead">
+	<h1 id="FIODescr"></h1>
+	<h2 id="Post"></h2>
+	<h2 id="PlaceDescr"></h2>
+</div>
+
+
+<div id="form"><form id="abc">
+	<div class="extended cent"><span class="modalcaption">Фамилия Имя Отчество: </span><input class="inputField short" name="FIOviziter" id="FIOviziter" placeholder=""/></div>
+	<div class="extended cent" id="chkstud"><input type="checkbox" style="zoom:1.5;vertical-align: middle;" id="isstudent" onchange="IsStudent()" checked><label for="isstudent">Ребенок обучается в ГБОУ Школа № 1298 "Профил Куркино"</label></div>
+	<div class="extended cent isstudent"><span class="modalcaption">Фaмилия Имя ребенка: </span><input class="inputField short" name="FIOchild" id="FIOchild" placeholder=""/></div>
+	<div class="extended cent isstudent"><span class="modalcaption">Класс или Группа: </span><input class="inputField short" name="Classchild" id="Classchild" placeholder="11А"/></div>
+	<div class="extended cent "><span class="modalcaption">Контактный телефон: </span><input class="inputField short" id="Telviziter" name="Telviziter" placeholder=""/></div>
+	<div class="extended cent"><span class="modalcaption">По вопросу: </span><select class="inputField short" id="Questionviziter" name="Questionviziter">
+		<option value="Поступление в школу/детский сад">Поступление в школу/детский сад</option>
+		<option value="Отчисление из школы/детского сада">Отчисление из школы/детского сада</option>
+		<option value="Другое">Другое</option>
+	</select><span class="downbar" id="downbar">▼</span></div>
+	<div class="extended cent"><span class="modalcaption">Выберите дату: </span><select class="inputField short" id="FreeDates" name="FreeDates" >
+		<option></option>
+	</select>
+	<span class="downbar" id="downbar">▼</span>
+	<input style="display:none"  name="FreeTime" id="FreeTime" />
+	</div>
+</form>
+
+	<div id="TimeList">
+		
+	</div>
+	<div id="ButtonPlace"></div>
+</div>
+<div class="loaderdiv"><img src="loader.gif"/></div>
+</body>
+</html>
